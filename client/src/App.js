@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
-import './App.css';
-import Album from './Album';
+import CustomAppBar from './components/CustomAppBar';
+import HeroUnit  from './components/HeroUnit';
+import Footer from './components/Footer';
+import GridContainer from './components/GridContainer';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 
 class App extends Component {
   state = {users: []}
   
   componentDidMount() {
-    fetch('/users')
-      .then(res => res.json())
-      .then(users => this.setState({ users }));
+    // fetch('/users')
+    //   .then(res => res.json())
+    //   .then(users => this.setState({ users }));
   }
 
   render() {
       return (
-        // <div className="flex-container">
-        //   <h1> bloom filter </h1>
-        //   <button id="index" className="flex-container-item"> index </button>
-        //   <button id="add" className="flex-container-item"> add </button>
-        //   <button id="test" className="flex-container-item"> test </button>
-
-        // </div>
-        <Album />
+        <React.Fragment>
+          <CssBaseline />
+          <CustomAppBar />
+          <main>
+            <HeroUnit />
+            <GridContainer />
+          </main>
+          <Footer />
+        </React.Fragment>
       );
   }
 }
