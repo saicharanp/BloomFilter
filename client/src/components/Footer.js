@@ -16,10 +16,10 @@ function Footer(props) {
   return (
     <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
-            Saicharan Poduri
+            Written by Saicharan Poduri
         </Typography>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-            Implemented as a training exercise
+            <a href="https://github.com/saicharanp/BloomFilter" style={{textDecoration: 'none'}}>Github</a>
         </Typography>
     </footer>
   );
