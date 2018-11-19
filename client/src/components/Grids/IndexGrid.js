@@ -8,6 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import { startIndexing } from '../../actions/action';
 
 const styles = theme => ({
   card: {
@@ -43,7 +44,7 @@ function IndexGrid(props) {
             </Typography>
             </CardContent>
             <CardActions>
-            <Button size="large" color="primary" variant="contained" style={{marginLeft: '100px'}}>
+            <Button size="large" color="primary" variant="contained" style={{marginLeft: '100px'}} onClick={startIndexing}>
                 Index
             </Button>
             </CardActions>

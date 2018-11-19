@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   card: {
@@ -28,7 +29,7 @@ const styles = theme => ({
   },
 });
 
-function AddWordGrid(props) {
+export function AddWordGrid(props) {
   const { classes } = props;
 
   return (
@@ -71,4 +72,12 @@ AddWordGrid.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AddWordGrid);
+const mapStateToProps = state => {
+  return {
+    ...state
+  };
+};
+
+export default connect(
+  mapStateToProps
+)(withStyles(styles)(AddWordGrid));

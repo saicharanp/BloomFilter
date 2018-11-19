@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
 import CustomAppBar from './components/CustomAppBar';
 import HeroUnit  from './components/HeroUnit';
 import Footer from './components/Footer';
@@ -14,16 +16,19 @@ class App extends Component {
   }
 
   render() {
+      
       return (
-        <React.Fragment>
-          <CssBaseline />
-          <CustomAppBar />
-          <main>
-            <HeroUnit />
-            <GridContainer />
-          </main>
-          <Footer />
-        </React.Fragment>
+        <Provider store={store}>
+          <React.Fragment>
+            <CssBaseline />
+            <CustomAppBar />
+            <main>
+              <HeroUnit />
+              <GridContainer />
+            </main>
+            <Footer />
+          </React.Fragment>
+        </Provider>
       );
   }
 }
