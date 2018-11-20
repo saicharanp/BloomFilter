@@ -5,8 +5,8 @@ export const indexApi = () => {
     let deferred = Q.defer();
     $.ajax({
         type: "POST",
-        url: "localhost:3001/bloomfilter/index",
-        crossDomain: true,
+        url: "http://localhost:3001/bloomfilter/index",
+        crossOrigin: true,
         success: function() {
             deferred.resolve();
         },
