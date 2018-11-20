@@ -13,6 +13,12 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.INDEX_ALL_WORDS_START: {
+      return {
+        ...initialState
+      };
+    }
+    
     case actionTypes.GET_INDEXING_STATUS_SUCCESS: {
         return {
             ...state,
