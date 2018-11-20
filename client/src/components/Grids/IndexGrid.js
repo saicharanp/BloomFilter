@@ -30,7 +30,7 @@ const styles = theme => ({
 });
 
 function IndexGrid(props) {
-  const { classes } = props;
+  const { classes, status } = props;
 
   return (
     <Grid item key={0} sm={10} md={6} lg={4}>
@@ -45,8 +45,9 @@ function IndexGrid(props) {
                 Index
             </Typography>
             <Typography>
-                Click below to add all the words from <a href="http://codekata.com/data/wordlist.txt" style={{textDecoration: 'none'}}>Codekata wordlist</a> to the set
+                <p>Click below to add all the words from <a href="http://codekata.com/data/wordlist.txt" style={{textDecoration: 'none'}}>Codekata wordlist</a> to the set</p>
             </Typography>
+            {showIndexStatusText(status)}
             </CardContent>
             <CardActions>
               {showIndexControls(props)}
@@ -57,10 +58,10 @@ function IndexGrid(props) {
 }
 
 function showIndexControls(props) {
-  const { classes, indexWords, isIndexingCompleted, isIndexingInProgress } = props;
-  if(isIndexingInProgress) {
+  const { classes, indexWords, status } = props;
+  if(status === 'RUNNING') {
     return (
-      <CircularProgress className={classes.progress} />
+      <CircularProgress style={{marginLeft: '115px'}} className={classes.progress} />
     );
   }
   else {
@@ -70,23 +71,35 @@ function showIndexControls(props) {
       variant="contained" 
       style={{marginLeft: '100px'}} 
       onClick={indexWords} 
-      disabled={isIndexingCompleted}>
+      disabled={status === 'INDEXED'}>
         Index
     </Button>
     );
   }
 }
 
+function showIndexStatusText(status) {
+  if(status === 'INDEXED') {
+    return (
+      <p style={{fontFamily: 'cursive', fontStyle: 'italic', color: 'green', marginLeft: '15px'}}> Indexing completed successfully</p>
+    );
+  }
+  if(status === 'FAILED') {
+    return (
+      <p style={{fontFamily: 'cursive', fontStyle: 'italic', color: 'red', marginLeft: '15px'}}> Indexing failed, please restart</p>
+    );
+  }
+}
+
 IndexGrid.propTypes = {
   classes: PropTypes.object.isRequired,
-  indexWords: PropTypes.function,
-  isIndexingInProgress: PropTypes.bool,
-  isIndexingCompleted: PropTypes.bool,
+  indexWords: PropTypes.func,
+  status: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
-    ...state,
+    status: state && state.status,
     indexWords: indexAction
   };
 };

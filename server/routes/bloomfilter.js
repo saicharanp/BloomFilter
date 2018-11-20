@@ -9,19 +9,22 @@ router.get('/', function(req, res, next) {
 
 /* POST indexing request. */
 router.post('/index', function(req, res, next) {
-  bloomFilterImpl.index()
-  .then(data => {
-      res.status(200).json({isCompleted: true});
-  })
-  .catch(error => {
-     res.status(500).json({isCompleted: false}); 
-  })
+    // The commented out code is a sync operation
+//   bloomFilterImpl.index()
+//   .then(data => {
+//       res.status(200).json({isCompleted: true});
+//   })
+//   .catch(error => {
+//      res.status(500).json({isCompleted: false}); 
+//   })
+    bloomFilterImpl.index();
+    res.status(200).json({isStarted: true});
 });
 
 /* POST add request. */
 router.post('/add', function(req, res, next) {
+    console.log(req.body);
     bloomFilterImpl.add(req.body.word);
-    console.log("Successfully set");
     res.status(200).json({isAdded: true});
 });
 

@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+import { updateAddWordAction, sendAddWordAction } from '../../actions/action';
 
 const styles = theme => ({
   card: {
@@ -30,7 +31,7 @@ const styles = theme => ({
 });
 
 export function AddWordGrid(props) {
-  const { classes } = props;
+  const { classes, addWord, updateAddWord, sendAddWord, isAdded, isAddFailed, status } = props;
 
   return (
     <Grid item key={1} sm={10} md={6} lg={4}>
@@ -48,18 +49,26 @@ export function AddWordGrid(props) {
                 Add your own word to the set
                 <TextField
                   id="outlined-name"
-                  label="Add Word"
+                  label={status === 'RUNNING' ? 'Add is disabled while indexing' : "Start typing to add word"}
                   className={classes.textField}
-                  value=""
-                  placeholder="Enter your word"
-                  onChange={() => {console.log("hello");}}
+                  value={addWord === undefined ? '' : addWord}
+                  placeholder='Enter your word'
+                  onChange={(e) => updateAddWord(e && e.target && e.target.value)}
+                  onKeyPress={(e) => {
+                    if(e && e.key === 'Enter' && addWord !== undefined && addWord.length > 0 && !isAdded && status !== 'RUNNING') {
+                      sendAddWord();
+                    }
+                  }}
+                  disabled={status === 'RUNNING'}
                   margin="normal"
                   style={{width: '-webkit-fill-available'}}
                   variant="outlined" />
             </Typography>
+            {showAddStatus(isAddFailed, isAdded, addWord)}
             </CardContent>
             <CardActions>
-            <Button size="large" variant="contained" color="primary" style={{marginLeft: '100px'}}>
+            <Button size="large" variant="contained" color="primary" style={{marginLeft: '100px'}} onClick={sendAddWord} 
+              disabled={addWord === undefined || addWord.length === 0 || isAdded || status === 'RUNNING'}>
                 Add
             </Button>
             </CardActions>
@@ -68,13 +77,37 @@ export function AddWordGrid(props) {
   );
 }
 
+function showAddStatus(isAddFailed, isAdded, word) {
+  if(isAdded) {
+    return (
+      <p style={{fontFamily: 'cursive', fontStyle: 'italic', color: 'green', marginLeft: '15px'}}> Successfully added {word} to set</p>
+    );
+  }
+  if(isAddFailed) {
+    return (
+      <p style={{fontFamily: 'cursive', fontStyle: 'italic', color: 'red', marginLeft: '15px'}}> Failed to add {word}, please retry</p>
+    );
+  }
+}
+
 AddWordGrid.propTypes = {
   classes: PropTypes.object.isRequired,
+  addWord: PropTypes.string,
+  updateAddWord: PropTypes.func,
+  sendAddWord: PropTypes.func,
+  isAdded: PropTypes.bool,
+  isAddFailed: PropTypes.bool,
+  status: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
-    ...state
+    addWord: state && state.addWord,
+    isAdded: state && state.isAdded,
+    isAddFailed: state && state.isAddFailed,
+    status: state && state.status,
+    updateAddWord: updateAddWordAction,
+    sendAddWord: sendAddWordAction,
   };
 };
 

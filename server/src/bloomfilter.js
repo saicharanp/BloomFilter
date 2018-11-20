@@ -14,6 +14,7 @@ class BloomFilter {
         this.hashArray = _.fill(Array(0xffff), 0); // Initialize a 4294967295 bit array to store the hash value indices
         this.isIndexingInProgress = false;
         this.isIndexingCompleted = false;
+        this.isIndexingFailed = false;
     }
 
     index() {
@@ -32,10 +33,11 @@ class BloomFilter {
                 return resolve();
             })
             .catch(error => {
+                this.isIndexingFailed = true;
                 return reject('Indexing failed');
             })
             .finally(() => {
-                this.isIndexingInProgress = true;
+                this.isIndexingInProgress = false;
             });
         });
     }
@@ -61,6 +63,8 @@ class BloomFilter {
             return 'RUNNING';
         else if(this.isIndexingCompleted)
             return 'INDEXED';
+        else if(this.isIndexingFailed)
+            return 'FAILED';
         else {
             return 'NOT_INDEXED';
         }

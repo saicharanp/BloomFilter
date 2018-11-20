@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
@@ -6,6 +6,8 @@ import { withStyles } from '@material-ui/core/styles';
 import AddWordGrid from './Grids/AddWordGrid';
 import IndexGrid from './Grids/IndexGrid';
 import TestWordGrid from './Grids/TestWordGrid';
+import { statusAction } from '../actions/action';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   layout: {
@@ -34,23 +36,37 @@ const styles = theme => ({
   },
 });
 
-function GridContainer(props) {
-  const { classes } = props;
+class GridContainer extends Component {
 
-  return (
-    <div className={classNames(classes.layout, classes.cardGrid)}>
-        {/* End hero unit */}
-        <Grid container spacing={40}>
-            <IndexGrid />
-            <AddWordGrid />
-            <TestWordGrid />
-        </Grid>
-    </div>
-  );
+  componentDidMount() {
+    this.props.getIndexStatus();
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classNames(classes.layout, classes.cardGrid)}>
+          {/* End hero unit */}
+          <Grid container spacing={40}>
+              <IndexGrid />
+              <AddWordGrid />
+              <TestWordGrid />
+          </Grid>
+      </div>
+    );
+  }
 }
 
 GridContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(GridContainer);
+const mapStateToProps = state => {
+  return {
+    getIndexStatus: statusAction
+  };
+};
+
+export default connect(
+  mapStateToProps
+)(withStyles(styles)(GridContainer));
