@@ -11,7 +11,7 @@ class BloomFilter {
 
     constructor() {
         this.wordlist = wordlist;
-        this.hashArray = _.fill(Array(0xffff), 0); // Initialize a 65535 bit array to store the hash value indices
+        this.hashArray = _.fill(Array(0xffff), 0); // Initialize a 4294967295 bit array to store the hash value indices
         this.isIndexingInProgress = false;
         this.isIndexingCompleted = false;
     }
