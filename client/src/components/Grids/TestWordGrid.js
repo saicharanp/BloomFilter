@@ -80,7 +80,7 @@ function showTestStatus(isTestFailed, isPresent, isTested, testWord) {
   }
   if(isTested) {
     return (
-      <p style={{fontFamily: 'cursive', fontStyle: 'italic', color: 'green', marginLeft: '15px'}}> {testWord} is {isPresent ? '' : 'NOT'} present in set</p>
+      <p style={{fontFamily: 'cursive', fontStyle: 'italic', color: 'green', marginLeft: '15px'}}> {testWord} {isPresent ? 'MAYBE' : 'IS NOT'} present in set</p>
     );
   }
 }
