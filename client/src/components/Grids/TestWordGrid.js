@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { updateTestWordAction, sendTestWordAction } from '../../actions/action';
 
 const styles = theme => ({
   card: {
@@ -25,7 +27,7 @@ const styles = theme => ({
 });
 
 function TestWordGrid(props) {
-  const { classes } = props;
+  const { classes, testWord, updateTestWord, isTested, sendTestWord, isPresent, isTestFailed, status } = props;
 
   return (
     <Grid item key={2} sm={10} md={6} lg={4}>
@@ -43,18 +45,25 @@ function TestWordGrid(props) {
                 Check if a word is present in the set
                 <TextField
                   id="outlined-name"
-                  label="Test Word"
+                  label={status === 'RUNNING' ? 'Test is disabled while indexing' : "Start typing to test word"}
                   className={classes.textField}
-                  value=""
+                  value={testWord === undefined ? '' : testWord}
                   placeholder="Enter your word"
-                  onChange={() => {console.log("hello");}}
+                  onChange={(e) => updateTestWord(e && e.target && e.target.value)}
+                  onKeyPress={(e) => {
+                    if(e && e.key === 'Enter' && testWord !== undefined && testWord.length > 0 && !isTested && status !== 'RUNNING') {
+                      sendTestWord();
+                    }
+                  }}
                   margin="normal"
                   style={{width: '-webkit-fill-available'}}
                   variant="outlined" />
             </Typography>
+            {showTestStatus(isTestFailed, isPresent, isTested, testWord)}
             </CardContent>
             <CardActions>
-              <Button size="large" variant="contained" color="primary" style={{marginLeft: '100px'}}>
+              <Button size="large" variant="contained" color="primary" style={{marginLeft: '100px'}} onClick={sendTestWord} 
+              disabled={testWord === undefined || testWord.length === 0 || isTested || status === 'RUNNING'}>
                   Test
               </Button>
             </CardActions>
@@ -63,8 +72,42 @@ function TestWordGrid(props) {
   );
 }
 
+function showTestStatus(isTestFailed, isPresent, isTested, testWord) {
+  if(isTestFailed) {
+    return (
+      <p style={{fontFamily: 'cursive', fontStyle: 'italic', color: 'red', marginLeft: '15px'}}> Failed to test {testWord}, please retry</p>
+    );
+  }
+  if(isTested) {
+    return (
+      <p style={{fontFamily: 'cursive', fontStyle: 'italic', color: 'green', marginLeft: '15px'}}> {testWord} is {isPresent ? '' : 'NOT'} present in set</p>
+    );
+  }
+}
+
 TestWordGrid.propTypes = {
   classes: PropTypes.object.isRequired,
+  testWord: PropTypes.string,
+  updateTestWord: PropTypes.func,
+  sendTestWord: PropTypes.func,
+  isPresent: PropTypes.bool,
+  isTestFailed: PropTypes.bool,
+  isTested: PropTypes.bool,
+  status: PropTypes.string,
 };
 
-export default withStyles(styles)(TestWordGrid);
+const mapStateToProps = state => {
+  return {
+    testWord: state && state.testWord,
+    isPresent: state && state.isPresent,
+    isTestFailed: state && state.isTestFailed,
+    isTested: state && state.isTested,
+    status: state && state.status,
+    updateTestWord: updateTestWordAction,
+    sendTestWord: sendTestWordAction,
+  };
+};
+
+export default connect(
+  mapStateToProps
+)(withStyles(styles)(TestWordGrid));

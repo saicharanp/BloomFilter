@@ -1,5 +1,5 @@
 import { actionTypes } from '../actionTypes';
-import { indexApi, statusApi, addWordApi } from '../api/api';
+import { indexApi, statusApi, addWordApi, testWordApi } from '../api/api';
 import store from '../store';
 const Q = require('q');
 
@@ -38,16 +38,29 @@ export const sendAddWordAction = () => {
     const state = store.getState(), 
         word = state && state.addWord;
     Q.when(addWordApi(word))
-    .then((data) => {
-        const isAdded = data && data.isAdded;
-        store.dispatch({type: actionTypes.ADD_WORD_TO_SET_SUCCESS, isAdded});
+    .then(() => {
+        store.dispatch({type: actionTypes.ADD_WORD_TO_SET_SUCCESS});
     })
     .fail((err) => {
-        store.dispatch({type: actionTypes.ADD_WORD_TO_SET_FAILURE, isAdded: false});
+        store.dispatch({type: actionTypes.ADD_WORD_TO_SET_FAILURE});
     });
 };
 
 export const updateTestWordAction = (value) => {
     store.dispatch({type: actionTypes.UPDATE_TEST_WORD, value});
 }
+
+export const sendTestWordAction = () => {
+    store.dispatch({type: actionTypes.TEST_WORD_IN_SET_START});
+    const state = store.getState(), 
+        word = state && state.testWord;
+    Q.when(testWordApi(word))
+    .then((data) => {
+        const isPresent = data && data.isPresent;
+        store.dispatch({type: actionTypes.TEST_WORD_IN_SET_SUCCESS, isPresent});
+    })
+    .fail((err) => {
+        store.dispatch({type: actionTypes.TEST_WORD_IN_SET_FAILURE});
+    });
+};
 
