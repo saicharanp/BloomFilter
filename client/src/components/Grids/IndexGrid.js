@@ -8,7 +8,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import { startIndexing } from '../../actions/action';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { indexAction } from '../../actions/action';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   card: {
@@ -21,6 +23,9 @@ const styles = theme => ({
   },
   cardContent: {
     flexGrow: 1,
+  },
+  progress: {
+    margin: theme.spacing.unit * 2,
   },
 });
 
@@ -44,17 +49,48 @@ function IndexGrid(props) {
             </Typography>
             </CardContent>
             <CardActions>
-            <Button size="large" color="primary" variant="contained" style={{marginLeft: '100px'}} onClick={startIndexing}>
-                Index
-            </Button>
+              {showIndexControls(props)}
             </CardActions>
         </Card>
     </Grid>
   );
 }
 
+function showIndexControls(props) {
+  const { classes, indexWords, isIndexingCompleted, isIndexingInProgress } = props;
+  if(isIndexingInProgress) {
+    return (
+      <CircularProgress className={classes.progress} />
+    );
+  }
+  else {
+    return (
+    <Button size="large" 
+      color="primary" 
+      variant="contained" 
+      style={{marginLeft: '100px'}} 
+      onClick={indexWords} 
+      disabled={isIndexingCompleted}>
+        Index
+    </Button>
+    );
+  }
+}
+
 IndexGrid.propTypes = {
   classes: PropTypes.object.isRequired,
+  indexWords: PropTypes.function,
+  isIndexingInProgress: PropTypes.bool,
+  isIndexingCompleted: PropTypes.bool,
 };
 
-export default withStyles(styles)(IndexGrid);
+const mapStateToProps = state => {
+  return {
+    ...state,
+    indexWords: indexAction
+  };
+};
+
+export default connect(
+  mapStateToProps
+)(withStyles(styles)(IndexGrid));
