@@ -13,9 +13,14 @@ class BloomFilter {
         this.wordlist = wordlist;
         this.hashArray = _.fill(Array(0xffff), 0); // Initialize a 65535 bit array to store the hash value indices
         this.isIndexingInProgress = false;
+        this.isIndexingCompleted = false;
     }
 
     index() {
+        if(this.isIndexingCompleted) {
+            return new Promise.resolve();
+        }
+        this.isIndexingInProgress = true;
         return new Promise((resolve, reject) => {
             return fs.readFileAsync(this.wordlist)
             .then(words => {
@@ -23,7 +28,14 @@ class BloomFilter {
                 _.each(wordTokens, wordToken => {
                     this.hashAndUpdateArray(wordToken);
                 });
+                this.isIndexingCompleted = true;
                 return resolve();
+            })
+            .catch(error => {
+                return reject('Indexing failed');
+            })
+            .finally(() => {
+                this.isIndexingInProgress = true;
             });
         });
     }
@@ -42,6 +54,16 @@ class BloomFilter {
             }
         })
         return isPresent;
+    }
+
+    status() {
+        if(this.isIndexingInProgress)
+            return 'RUNNING';
+        else if(this.isIndexingCompleted)
+            return 'INDEXED';
+        else {
+            return 'NOT_INDEXED';
+        }
     }
 
     hashAndUpdateArray(word) {

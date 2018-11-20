@@ -17,3 +17,7 @@ module.exports.add = (word) => {
 module.exports.test = (word) => {
     return bfl.test(word);
 }
+
+module.exports.status = () => {
+    return bfl.status();
+}

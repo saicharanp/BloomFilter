@@ -4,7 +4,6 @@ var bloomFilterImpl =  require('../src/bloomfilterimpl');
 
 /* GET request request */
 router.get('/', function(req, res, next) {
-    console.log("Entered here");
     res.render('index', { title: 'Bloom filter backend' });
 });
 
@@ -32,7 +31,10 @@ router.post('/test', function(req, res, next) {
     res.status(200).json({isPresent: isPresent});
 });
 
-
-
+/* GET indexing request. */
+router.get('/status', function(req, res, next) {
+    const status = bloomFilterImpl.status();
+    res.status(200).json({status: status});
+});
 
 module.exports = router;
