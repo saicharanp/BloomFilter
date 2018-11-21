@@ -1,11 +1,13 @@
-import React, { Component } from "react";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import { Provider } from "react-redux";
+import React, { Component } from "react";
+
 import store from "./store";
+
 import CustomAppBar from "./components/CustomAppBar";
-import HeroUnit from "./components/HeroUnit";
 import Footer from "./components/Footer";
 import GridContainer from "./components/GridContainer";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import HeroUnit from "./components/HeroUnit";
 
 class App extends Component {
   render() {

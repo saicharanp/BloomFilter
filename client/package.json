@@ -27,6 +27,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "lodash": "^4.17.11",
     "prettier": "^1.15.2",
     "react-redux": "^5.1.1",
     "redux": "^4.0.1"
