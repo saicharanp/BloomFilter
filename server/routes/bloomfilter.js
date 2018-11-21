@@ -1,43 +1,42 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var bloomFilterImpl =  require('../src/bloomfilterimpl');
+var bloomFilterImpl = require("../src/bloomfilterimpl");
 
-/* GET request request */
-router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Bloom filter backend' });
+/* Dummy route for default bloom filter GET request */
+router.get("/", function(req, res, next) {
+  res.render("index", { title: "Bloom filter backend" });
 });
 
 /* POST indexing request. */
-router.post('/index', function(req, res, next) {
-    // The commented out code is a sync operation
-//   bloomFilterImpl.index()
-//   .then(data => {
-//       res.status(200).json({isCompleted: true});
-//   })
-//   .catch(error => {
-//      res.status(500).json({isCompleted: false}); 
-//   })
-    bloomFilterImpl.index();
-    res.status(200).json({isStarted: true});
+router.post("/index", function(req, res, next) {
+  // The commented out code is a sync operation
+  //   bloomFilterImpl.index()
+  //   .then(data => {
+  //       res.status(200).json({isCompleted: true});
+  //   })
+  //   .catch(error => {
+  //      res.status(500).json({isCompleted: false});
+  //   })
+  bloomFilterImpl.index();
+  res.status(200);
 });
 
 /* POST add request. */
-router.post('/add', function(req, res, next) {
-    console.log(req.body);
-    bloomFilterImpl.add(req.body.word);
-    res.status(200).json({isAdded: true});
+router.post("/add", function(req, res, next) {
+  bloomFilterImpl.add(req.body.word);
+  res.status(200);
 });
 
 /* POST test request. */
-router.post('/test', function(req, res, next) {
-    const isPresent = bloomFilterImpl.test(req.body.word);
-    res.status(200).json({isPresent: isPresent});
+router.post("/test", function(req, res, next) {
+  const isPresent = bloomFilterImpl.test(req.body.word);
+  res.status(200).json({ isPresent: isPresent });
 });
 
 /* GET indexing request. */
-router.get('/status', function(req, res, next) {
-    const status = bloomFilterImpl.status();
-    res.status(200).json({status: status});
+router.get("/status", function(req, res, next) {
+  const status = bloomFilterImpl.status();
+  res.status(200).json({ status: status });
 });
 
 module.exports = router;
