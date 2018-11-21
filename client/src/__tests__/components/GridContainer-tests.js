@@ -1,7 +1,7 @@
-import { GridContainer } from "../../components/GridContainer";
 import { shallow } from "enzyme";
 import React from "react";
-const _ = require("lodash");
+import * as _ from "lodash";
+import { GridContainer } from "../../components/GridContainer";
 import IndexGrid from "../../components/Grids/IndexGrid";
 import AddWordGrid from "../../components/Grids/AddWordGrid";
 import TestWordGrid from "../../components/Grids/TestWordGrid";

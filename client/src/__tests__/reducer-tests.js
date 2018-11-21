@@ -1,6 +1,6 @@
+import * as _ from "lodash";
 import reducer from "../reducer";
 import { actionTypes } from "../actionTypes";
-const _ = require("lodash");
 
 const initialState = {
   index: {
