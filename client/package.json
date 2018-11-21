@@ -27,6 +27,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
+    "jest": "^23.6.0",
     "lodash": "^4.17.11",
     "prettier": "^1.15.2",
     "react-redux": "^5.1.1",

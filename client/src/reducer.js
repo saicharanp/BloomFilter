@@ -28,7 +28,9 @@ const rootReducer = (state = initialState, action) => {
     case actionTypes.GET_INDEXING_STATUS_SUCCESS: {
       return {
         ...state,
-        status: action.status
+        index: {
+          status: action.status
+        }
       };
     }
 

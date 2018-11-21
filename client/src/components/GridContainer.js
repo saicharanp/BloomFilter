@@ -9,7 +9,7 @@ import TestWordGrid from "./Grids/TestWordGrid";
 import { statusAction } from "../action";
 import { connect } from "react-redux";
 
-const styles = theme => ({
+export const styles = theme => ({
   layout: {
     width: "auto",
     marginLeft: theme.spacing.unit * 3,
@@ -36,7 +36,7 @@ const styles = theme => ({
   }
 });
 
-class GridContainer extends Component {
+export class GridContainer extends Component {
   componentDidMount() {
     this.props.getIndexStatus();
   }

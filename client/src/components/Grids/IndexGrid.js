@@ -45,7 +45,6 @@ function IndexGrid(props) {
             Index
           </Typography>
           <Typography>
-            <p>
               Click below to add all the words from{" "}
               <a
                 href="http://codekata.com/data/wordlist.txt"
@@ -54,7 +53,6 @@ function IndexGrid(props) {
                 Codekata wordlist
               </a>{" "}
               to the set
-            </p>
           </Typography>
           {showIndexStatusText(status)}
         </CardContent>
