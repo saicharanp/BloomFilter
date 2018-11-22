@@ -10,24 +10,32 @@ This code is fundamentally divided into two parts:
     3) Runs on the webpack dev server.
     
   ### Server
-  1) It is the backend API part of the application. 
-  2) Implemented using Express and Node js. 
-  3) Runs on the express dev server.
+    1) It is the backend API part of the application. 
+    2) Implemented using Express and Node js. 
+    3) Runs on the express dev server.
 
 
 ## Setup server and client
 
-```shell
-$ git clone https://github.com/saicharanp/BloomFilter.git
+  ```shell
+  $ git clone https://github.com/saicharanp/BloomFilter.git
 
-$ cd server
-$ npm install
-$ npm start 
+  $ cd server
+  $ npm install
+  $ npm start 
 
-$ cd client
-$ npm install
-$ npm start
-```
+  $ cd client
+  $ npm install
+  $ npm start
+  ```
+  ```diff
+    + Navigate to localhost:3000 for backend server and localhost:3001 for UI frontend. 
+    - If you're using chrome, disable web secutiry to allow API requests from UI to backend. 
+    ```shell
+      chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
+    ```
+  ```
+  
 
 
 
