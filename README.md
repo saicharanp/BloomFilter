@@ -28,12 +28,12 @@ This code is fundamentally divided into two parts:
   $ npm install
   $ npm start
   ```
-  ```diff
-    + Navigate to localhost:3000 for backend server and localhost:3001 for UI frontend. 
-    - If you're using chrome, disable web secutiry to allow API requests from UI to backend. 
-    ```shell
-      chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
-    ```
+  
+
+  + Navigate to localhost:3000 for backend server and localhost:3001 for UI frontend. 
+  - If you're using chrome, disable web secutiry to allow API requests from UI to backend. 
+  ```shell
+    chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
   ```
   
 
