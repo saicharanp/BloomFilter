@@ -35,6 +35,8 @@ describe("Bloomfilter routes", function() {
       .send({ word: "hello" })
       .end(function(err, res) {
         res.should.have.status(200);
+        res.body.should.be.a("object");
+        res.body.should.have.property("isAdded").eql(true);
       });
     done();
   });
@@ -92,6 +94,8 @@ describe("Bloomfilter routes", function() {
       .send({ wordListPath: "./test/wordlist.txt" })
       .end(function(err, res) {
         res.should.have.status(200);
+        res.body.should.be.a("object");
+        res.body.should.have.property("isIndexed").eql(true);
       });
     done();
   });

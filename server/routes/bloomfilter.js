@@ -18,13 +18,13 @@ router.post("/index", function(req, res, next) {
   //      res.status(500).json({isCompleted: false});
   //   })
   bloomFilterImpl.index(req.body.wordListPath);
-  res.status(200);
+  res.status(200).json({ isIndexed: true });
 });
 
 /* POST add request. */
 router.post("/add", function(req, res, next) {
   bloomFilterImpl.add(req.body.word);
-  res.status(200);
+  res.status(200).json({ isAdded: true });
 });
 
 /* POST test request. */

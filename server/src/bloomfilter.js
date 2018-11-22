@@ -51,6 +51,7 @@ class BloomFilter {
 
   add(word) {
     this.hashAndUpdateArray(word);
+    return;
   }
 
   test(word) {
