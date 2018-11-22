@@ -30,7 +30,7 @@ This code is fundamentally divided into two parts:
   ```
   
 
-  + Navigate to localhost:3000 for backend server and localhost:3001 for UI frontend. 
+  + Navigate to ```localhost:3000``` for backend server and ```localhost:3001``` for UI. 
   - If you're using chrome, disable web secutiry to allow API requests from UI to backend. 
   ```shell
     chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
