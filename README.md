@@ -2,7 +2,7 @@
 
 This project implements a Bloom filter and is written as an UI+REST learning experience. A Bloom filter is a probabilistic data structure which tells us whether an element is definitely not in the set or may be in the set.
 
-https://i.imgur.com/CGqTvNr.png
+![UI](https://i.imgur.com/CGqTvNr.png)
 
 ## Code 
 This code is fundamentally divided into two parts:
