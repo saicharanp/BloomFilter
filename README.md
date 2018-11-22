@@ -38,6 +38,9 @@ This code is fundamentally divided into two parts:
     chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
   ```
   
+  ### Running tests
+    Run `npm run test` from `Client` and `Server` directories
+  
 ## API calls
 
 POST ```/bloomfilter/index``` - adds all the words in [Codekata Wordlist](http://codekata.com/data/wordlist.txt) to the bloom filter set.
