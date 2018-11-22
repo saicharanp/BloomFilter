@@ -36,6 +36,26 @@ This code is fundamentally divided into two parts:
     chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
   ```
   
+## API calls
+
+POST ```/bloomfilter/index``` - adds all the words in [Codekata Wordlist](http://codekata.com/data/wordlist.txt) to the bloom filter set.
+
+GET ```/bloomfilter/status``` - gets the status of the index operation
+
+POST ```/bloomfilter/add``` - add your own word to the set. The request body should be in the following format:
+```script
+{
+  word: "your_word"
+}
+```
+
+POST ```/bloomfilter/test``` - test if a word is present in the set. The request body should be in the following format:
+```script
+{
+  word: "your_word"
+}
+```
+  
 
 
 
