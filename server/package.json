@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "mocha"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -18,6 +19,8 @@
     "babel-core": "^6.26.3",
     "babel-preset-es2015": "^6.24.1",
     "bluebird": "^3.5.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
     "fs": "0.0.1-security",
     "lodash": "^4.17.11",
     "md5": "^2.2.1"

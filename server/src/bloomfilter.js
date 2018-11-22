@@ -5,11 +5,11 @@ const md5 = require("md5");
 const Promise = require("bluebird");
 const fs = Promise.promisifyAll(require("fs"));
 
-const wordlist = "./data/wordlist.txt";
+const codekataWordlist = "./data/wordlist.txt";
 
 class BloomFilter {
-  constructor() {
-    this.wordlist = wordlist;
+  constructor(customWordList) {
+    this.wordList = customWordList || codekataWordlist;
     this.hashArray = _.fill(Array(0xffffff), 0); // Initialize a 16777215 bit array to store the hash value indices
     this.isIndexingInProgress = false;
     this.isIndexingCompleted = false;
@@ -18,19 +18,22 @@ class BloomFilter {
 
   index() {
     if (this.isIndexingCompleted) {
-      return new Promise.resolve();
+      return new Promise.resolve("Indexing is already completed");
+    }
+    if (this.isIndexingInProgress) {
+      throw new Error("Indexing already in progress");
     }
     this.isIndexingInProgress = true;
     return new Promise((resolve, reject) => {
       return fs
-        .readFileAsync(this.wordlist)
+        .readFileAsync(this.wordList)
         .then(words => {
           const wordTokens = words.toString().split("\n");
           _.each(wordTokens, wordToken => {
-            this.hashAndUpdateArray(wordToken);
+            this.hashAndUpdateArray(_.trim(wordToken));
           });
           this.isIndexingCompleted = true;
-          return resolve();
+          return resolve("Indexing successful");
         })
         .catch(() => {
           this.isIndexingFailed = true;
@@ -40,6 +43,10 @@ class BloomFilter {
           this.isIndexingInProgress = false;
         });
     });
+  }
+
+  getHashArray() {
+    return this.hashArray;
   }
 
   add(word) {
@@ -77,6 +84,17 @@ class BloomFilter {
     return _.map(_.chunk(md5Hash, 6), md5HashChunk => {
       return parseInt(md5HashChunk.join(""), 16);
     });
+  }
+
+  // Private method used only for testing
+  _setIndexState(status) {
+    if (status === "RUNNING") {
+      this.isIndexingInProgress = true;
+    } else if (status === "INDEXED") {
+      this.isIndexingCompleted = true;
+    } else if (status === "FAILED") {
+      this.isIndexingFailed = true;
+    }
   }
 }
 

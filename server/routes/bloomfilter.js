@@ -17,7 +17,7 @@ router.post("/index", function(req, res, next) {
   //   .catch(error => {
   //      res.status(500).json({isCompleted: false});
   //   })
-  bloomFilterImpl.index();
+  bloomFilterImpl.index(req.body.wordListPath);
   res.status(200);
 });
 
