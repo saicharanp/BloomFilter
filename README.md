@@ -39,7 +39,7 @@ This code is fundamentally divided into two parts:
   ```
   
   ### Running tests
-    Run ```npm run test``` from ```Client``` and ```Server``` directories
+  Run ```npm run test``` from ```Client``` and ```Server``` directories
   
 ## API calls
 
