@@ -22,7 +22,7 @@ export const statusAction = () => {
   store.dispatch({ type: actionTypes.GET_INDEXING_STATUS_START });
   Q.when(statusApi())
     .then(data => {
-      const status = data && data.index && data.index.status;
+      const status = data && data.status;
       store.dispatch({
         type: actionTypes.GET_INDEXING_STATUS_SUCCESS,
         status: status

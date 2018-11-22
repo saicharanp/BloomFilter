@@ -67,6 +67,7 @@ function TestWordGrid(props) {
                   sendTestWord();
                 }
               }}
+              disabled={status === "RUNNING"}
               margin="normal"
               style={{ width: "-webkit-fill-available" }}
               variant="outlined"
@@ -138,7 +139,7 @@ TestWordGrid.propTypes = {
 const mapStateToProps = state => {
   return {
     sendTestWord: sendTestWordAction,
-    status: state && state.status,
+    status: state && state.index && state.index.status,
     test: state && state.test,
     updateTestWord: updateTestWordAction
   };

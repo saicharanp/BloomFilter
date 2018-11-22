@@ -146,7 +146,7 @@ const mapStateToProps = state => {
   return {
     add: state && state.add,
     sendAddWord: sendAddWordAction,
-    status: state && state.status,
+    status: state && state.index && state.index.status,
     updateAddWord: updateAddWordAction
   };
 };
