@@ -79,6 +79,7 @@ POST ```/bloomfilter/test``` - test if a word is present in the set. The request
   ### Server
     1) More robust unit testing
     2) Performance testing and better scale handling
+    3) Make it completely stateless by using a database.
     
   ### Build and deployment
     1) Both server and client run on dev servers. Project should be able to bundle into production code.
