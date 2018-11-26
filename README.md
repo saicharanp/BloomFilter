@@ -68,8 +68,9 @@ POST ```/bloomfilter/test``` - test if a word is present in the set. The request
    ### Client
     1) Expand unit testing to all the components
     2) More robust CSS design and styling
-    3) Individual `actions` and `reducers` for the components
+    3) Individual actions and reducers for the components
     4) Move CSS out of individual components
+    5) #### Carve out common reusable components instead of duplicating code and use selectors for data handling.
     
   ### Server
     1) More robust unit testing
