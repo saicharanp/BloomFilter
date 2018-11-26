@@ -65,7 +65,7 @@ POST ```/bloomfilter/test``` - test if a word is present in the set. The request
 
 ## Hashing
 
-  Hash function is at the heart of Bloom filter. Selecting the right hash function by considering performance vs output is the key behind the efficient functioning of Bloom filter. It also affects the fault rate of the filter. Currently, this code is using `md5` hash function which generates a hashcode of length 32. 
+  Hash function is at the heart of Bloom filter. Selecting the right hash function by considering performance vs output is the key behind the efficient functioning of Bloom filter. It also affects the fault rate of the filter. Currently, this code is using `md5` hash function which generates a hashcode of length 32 for any input. 
 
 ## Further improvements
 
